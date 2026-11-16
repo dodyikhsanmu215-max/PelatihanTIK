@@ -1,0 +1,357 @@
+:root {
+  --navy-dark: #07192f;
+  --navy-mid: #0f2c52;
+  --ocean-blue: #164e87;
+  --cyan-glow: #38bdf8;
+  --gold: #f59e0b;
+  --gold-light: #fde68a;
+  --emerald: #10b981;
+  --slate-text: #e2e8f0;
+  --card-bg: rgba(11, 31, 58, 0.94);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #0f2d54 0%, #050f1d 100%);
+  color: var(--slate-text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+
+#game-wrapper {
+  width: 100%;
+  max-width: 1060px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* HUD Header */
+#hud {
+  background: var(--card-bg);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 14px;
+  padding: 10px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.anchor-icon {
+  font-size: 2rem;
+  background: linear-gradient(135deg, var(--gold), #d97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.5));
+}
+
+.brand h1 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.brand small {
+  color: var(--cyan-glow);
+  font-size: 0.8rem;
+}
+
+.stats-bar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  background: rgba(7, 25, 47, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 6px 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #94a3b8;
+}
+
+.stat-value {
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.stat-value strong {
+  color: var(--gold);
+  font-size: 1.05rem;
+}
+
+.area-box .stat-value {
+  color: var(--cyan-glow);
+  font-weight: 600;
+}
+
+/* 5 Konsentrasi Keahlian Pills */
+#majors-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.major-pill {
+  background: rgba(15, 44, 82, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 10px;
+  padding: 7px 10px;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.major-pill .major-progress {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #cbd5e1;
+  margin-top: 2px;
+}
+
+.major-pill.completed {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(6, 95, 70, 0.6));
+  border-color: var(--emerald);
+  color: #6ee7b7;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+/* Canvas Container */
+#canvas-container {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  background: #1a2e22;
+}
+
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1024 / 600;
+}
+
+/* Dialog Box */
+#dialog-box {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92%, 680px);
+  background: rgba(7, 22, 43, 0.96);
+  border: 2px solid var(--gold);
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75);
+  z-index: 15;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+#dialog-title {
+  font-weight: 700;
+  color: var(--gold);
+  font-size: 1rem;
+}
+
+#dialog-close {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#dialog-text {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: #f1f5f9;
+}
+
+.dialog-footer {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-align: right;
+}
+
+/* Overlays */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 13, 26, 0.86);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 25;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.modal-card {
+  background: linear-gradient(160deg, #0f294a, #07172b);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 18px;
+  max-width: 540px;
+  width: 100%;
+  padding: 28px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+.modal-anchor {
+  font-size: 3rem;
+  margin-bottom: 8px;
+}
+
+.modal-card h2 {
+  font-size: 1.65rem;
+  color: #fff;
+}
+
+.subtitle {
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin-bottom: 14px;
+}
+
+.desc {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #cbd5e1;
+  margin-bottom: 18px;
+}
+
+.controls-guide {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  color: var(--cyan-glow);
+  margin-bottom: 20px;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, var(--gold), #d97706);
+  color: #07192f;
+  font-weight: 800;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 26px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.6);
+}
+
+.win-stats {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 18px;
+  font-size: 0.85rem;
+  color: #a7f3d0;
+}
+
+/* Mobile Controls */
+#mobile-controls {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+}
+
+.dpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.dpad-mid {
+  display: flex;
+  gap: 6px;
+}
+
+.dpad button,
+#btn-action-mobile {
+  background: var(--navy-mid);
+  color: #fff;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dpad button {
+  width: 46px;
+  height: 46px;
+  font-size: 1.1rem;
+}
+
+#btn-action-mobile {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, var(--gold), #d97706);
+  color: #07192f;
+}
+
+@media (max-width: 768px) {
+  #majors-bar {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  #mobile-controls {
+    display: flex;
+  }
+}
