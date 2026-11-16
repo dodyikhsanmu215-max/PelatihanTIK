@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jangkar SMKN 1 Watulimo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="game-wrapper">
+    <!-- HUD Atas -->
+    <header id="hud">
+      <div class="brand">
+        <span class="anchor-icon">⚓</span>
+        <div>
+          <h1>Jangkar SMKN 1 Watulimo</h1>
+          <small>Misi Pelayaran & Konsentrasi Keahlian</small>
+        </div>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat-box">
+          <span class="stat-label">Total Siswa Terkumpul</span>
+          <span class="stat-value"><strong id="student-count">0</strong> / 757</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Lencana Keahlian</span>
+          <span class="stat-value"><strong id="badge-count">0</strong> / 5</span>
+        </div>
+        <div class="stat-box area-box">
+          <span class="stat-label">Lokasi Saat Ini</span>
+          <span class="stat-value" id="current-zone">Lapangan Upacara</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Daftar 5 Konsentrasi Keahlian -->
+    <div id="majors-bar">
+      <div class="major-pill" id="pill-APHPI" title="Agribisnis Pengolahan Hasil Perikanan">
+        🐟 APHPi <span class="major-progress">(0/152)</span>
+      </div>
+      <div class="major-pill" id="pill-NKPI" title="Nautika Kapal Penangkap Ikan">
+        🧭 NKPI <span class="major-progress">(0/152)</span>
+      </div>
+      <div class="major-pill" id="pill-TSM" title="Teknik Sepeda Motor">
+        🏍️ TSM <span class="major-progress">(0/151)</span>
+      </div>
+      <div class="major-pill" id="pill-TKPI" title="Teknika Kapal Penangkap Ikan">
+        ⚙️ TKPI <span class="major-progress">(0/151)</span>
+      </div>
+      <div class="major-pill" id="pill-APAT" title="Agribisnis Perikanan Air Tawar">
+        🦐 APAT <span class="major-progress">(0/151)</span>
+      </div>
+    </div>
+
+    <!-- Area Canvas Utama -->
+    <main id="canvas-container">
+      <canvas id="gameCanvas" width="1024" height="600"></canvas>
+
+      <!-- Kotak Dialog / Interaksi -->
+      <div id="dialog-box" class="hidden">
+        <div class="dialog-header">
+          <span id="dialog-title">Info Lokasi</span>
+          <button id="dialog-close" title="Tutup [Spasi/Enter]">✕</button>
+        </div>
+        <p id="dialog-text">Selamat datang di SMKN 1 Watulimo!</p>
+        <div class="dialog-footer">Tekan <strong>[SPASI]</strong> atau klik tombol untuk melanjutkan</div>
+      </div>
+
+      <!-- Layar Mulai -->
+      <div id="start-overlay" class="overlay">
+        <div class="modal-card">
+          <div class="modal-anchor">⚓</div>
+          <h2>Jangkar SMKN 1 Watulimo</h2>
+          <p class="subtitle">Eksplorasi Denah Kampus Maritim & Teknologi</p>
+          <p class="desc">
+            Jelajahi setiap sudut lingkungan <strong>SMKN 1 Watulimo</strong> — dari Lapangan Upacara, GoPark, Lab NKPI, Lab TKPI, Lab APHPi, Lab TSM, hingga Gedung IKN (APAT).
+            Kumpulkan seluruh <strong>757 siswa</strong> dari <strong>5 Konsentrasi Keahlian</strong> (APHPi, NKPI, TSM, TKPI, APAT) untuk mengangkat Jangkar Utama!
+          </p>
+          <div class="controls-guide">
+            <span>⬆️⬇️⬅️➡️ / <strong>WASD</strong> : Bergerak</span>
+            <span><strong>SPASI</strong> / <strong>E</strong> : Interaksi & Rekrut Siswa</span>
+            <span><strong>M</strong> : Peta Mini Denah</span>
+          </div>
+          <button id="btn-start" class="primary-btn">Mulai Eksplorasi Kampus</button>
+        </div>
+      </div>
+
+      <!-- Layar Kemenangan -->
+      <div id="win-overlay" class="overlay hidden">
+        <div class="modal-card">
+          <div class="modal-anchor">🏆⚓</div>
+          <h2>Jangkar Terangkat!</h2>
+          <p class="subtitle">SMKN 1 Watulimo Siap Berlayar Menuju Prestasi</p>
+          <p class="desc">
+            Luar biasa! Kamu berhasil menelusuri seluruh denah sekolah dan mengumpulkan <strong>757 / 757 Siswa</strong> dari kelima konsentrasi keahlian:
+            <strong>APHPi, NKPI, TSM, TKPI, dan APAT</strong>.
+          </p>
+          <div class="win-stats" id="win-summary"></div>
+          <button id="btn-restart" class="primary-btn">Mainkan Lagi</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Kontrol Layar Sentuh (Mobile / Tablet) -->
+    <footer id="mobile-controls">
+      <div class="dpad">
+        <button data-dir="up">▲</button>
+        <div class="dpad-mid">
+          <button data-dir="left">◀</button>
+          <button data-dir="down">▼</button>
+          <button data-dir="right">▶</button>
+        </div>
+      </div>
+      <button id="btn-action-mobile">⚓ Interaksi / Rekrut</button>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
